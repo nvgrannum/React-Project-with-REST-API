@@ -11,20 +11,14 @@ class App extends Component{
   }
 
   componentDidMount() {
-      this.getUser();
-      this.test();
+      this.getCourse();
+     
     }
 
-  test = async () => {
-    await axios.get(`localhost:5000/api/courses`)
-      .then(resultsData => {this.setState({courses:resultsData})})
-      .catch(error=> console.log('error fetching data', error));
-  }
-
-  getUser = async function() {
+  getCourse = async function() {
     try {
-      const response = await axios.get('localhost:5000/api/courses');
-      console.log(response);
+      await axios.get('http://localhost:5000/api/courses')
+      .then(data=>{console.log(data.data)});
     } catch (error) {
       console.error(error);
     }

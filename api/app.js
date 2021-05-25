@@ -17,8 +17,9 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 
 // create the Express app
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+
 
 const userRoutes = require('./routes/userRoutes');
 const courseRoutes= require('./routes/courseRoutes');
