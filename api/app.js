@@ -7,10 +7,10 @@ const morgan = require('morgan');
 const {sequelize} = require('./models');
 const cors = require('cors');
 
-const corsOptions = {
-  origin: 'localhost:3000',
-  optionsSuccessStatus:200
-}
+// const corsOptions = {
+//   origin: 'localhost:3000',
+//   optionsSuccessStatus:200
+// }
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -18,7 +18,7 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 // create the Express app
 const app = express();
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 
 const userRoutes = require('./routes/userRoutes');
 const courseRoutes= require('./routes/courseRoutes');
