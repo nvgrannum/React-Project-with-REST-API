@@ -15,9 +15,8 @@ class App extends Component{
     }
 
   test = async () => {
-    await axios.get(`http://localhost:5000/api/courses`)
-      .then(results => results.json())
-      .then(resultsData => {this.setState({courses:resultsData})})
+    await axios.get(`localhost:5000/api/courses`)
+      .then(resultsData => {this.setState({courses:resultsData.data})})
       .catch(error=> console.log('error fetching data', error));
   }
 
