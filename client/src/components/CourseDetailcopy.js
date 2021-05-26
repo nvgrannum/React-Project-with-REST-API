@@ -7,7 +7,8 @@ class CourseDetailcopy extends Component{
   
   state = {
     info:{},
-    id:this.props.match.params.id
+    id:this.props.match.params.id,
+    user:{}
   }
 
   componentDidMount() {
@@ -19,7 +20,8 @@ class CourseDetailcopy extends Component{
       await axios.get(`http://localhost:5000/api/courses/${id}`)
       .then(data=>{
           this.setState({
-            info:data.data 
+            info:data.data,
+            user:data.data.User 
           })
           console.log(this.state.info);
           console.log(this.state.user)
@@ -30,9 +32,8 @@ class CourseDetailcopy extends Component{
   
 
   render() {
-    const {info} = this.state;
+    const {info, user} = this.state;
     console.log(info)
-    const user = info.User;
     console.log(user)
     return(
       <div id="root">
@@ -50,7 +51,7 @@ class CourseDetailcopy extends Component{
                         <div>
                             <h3 className="course--detail--title">Course Detail</h3>
                             <h4 className="course--name">{info.title}</h4>
-                            <p>{`By ${info.firstName} ${info.lastName}`}</p>
+                            <p>{`By ${user.firstName} ${user.lastName}`}</p>
 
                             <p>{`${info.description}`}</p>
                         </div>
