@@ -1,32 +1,46 @@
-import React, { Component } from 'react';
-//import axios from 'axios'
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-//const express = require('express');
-const axios = require('axios')
+import Header from './components/Header';
+import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
+import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import NotFound from './components/NotFound';
+import UserSignUp from './components/UserSignUp';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import Authenticated from './components/Authenticated';
 
-class App extends Component{
-  
-  state = {
-    courses:[]
-  }
+import withContext from './Context';
+import PrivateRoute from './PrivateRoute';
 
-  componentDidMount() {
-      this.getCourse();
-     
-    }
+const HeaderWithContext = withContext(Header);
+const AuthWithContext = withContext(Authenticated);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 
-  getCourse = async function() {
-    try {
-      await axios.get('http://localhost:5000/api/courses')
-      .then(data=>{console.log(data.data)});
-    } catch (error) {
-      console.error(error);
-    }
-  }
+export default () => (
+  <Router>
+    <div>
+      <HeaderWithContext />
 
-  render(){
-    return(this.state.courses)
-  }
-}  
-
-export default App
+      <Switch>
+        <Route exact path="/" component={Courses} />
+        <PrivateRoute path="/authenticated" component={AuthWithContext} />
+        <Route path="/signin" component={UserSignInWithContext} />
+        <Route path="/signup" component={UserSignUpWithContext} />
+        <Route path="/signout" component={UserSignOutWithContext} />
+        <Route path="/courses/create" component={CreateCourse} />
+        <Route path="/courses/:id/update" component={UpdateCourse} />
+        <Route path="/courses/:id" component={CourseDetail} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  </Router>
+);
