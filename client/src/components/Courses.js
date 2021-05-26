@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom'
 const axios = require('axios')
 
 class Courses extends Component{
@@ -9,7 +10,6 @@ class Courses extends Component{
 
   componentDidMount() {
       this.getCourse();
-     
     }
 
   getCourse = async function() {
@@ -32,10 +32,10 @@ class Courses extends Component{
         <div>
             <div className="wrap main--grid">
                     {this.state.courses.map(course=>
-                    <a className="course--module course--link" href={`http://localhost:5000/api/courses/${course.id}`} key={course.id}>
+                    <Link className="course--module course--link" to={`/courses/${course.id}`} key={course.id}>
                         <h2 className="course--label">Course</h2>
                         <h3 className="course--title" >{course.title}</h3>
-                    </a>)}
+                    </Link>)}
             </div>
         </div>
       )

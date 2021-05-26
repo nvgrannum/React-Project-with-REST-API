@@ -3,29 +3,43 @@ import React, { Component, useState, useEffect } from 'react';
 const axios = require('axios');
 
 
-const CourseDetail =(props) => {
-  const [info, setInfo] = useState([]);
-  const id = props.match.params.id;
+class CourseDetailcopy extends Component{
+  
+  state = {
+    info:{},
+    id:this.props.match.params.id
+  }
 
+  componentDidMount() {
+      this.getCourse(this.state.id);
+      console.log(this.props.location.pathname.slice(9))
+    }
 
-  useEffect(()=> {
- 
-        axios.get(`http://localhost:5000/api/courses/${id}`)
-        .then(response=>{
-            setInfo(response.data)
-            console.log(info);
+  getCourse = async function(id) {
+      await axios.get(`http://localhost:5000/api/courses/${id}`)
+      .then(data=>{
+          this.setState({
+            info:data.data 
           })
-        .catch(err=>{console.error(err)})
+          console.log(this.state.info);
+          console.log(this.state.user)
+        })
+      .catch(err=>{console.error(err)})
+    }
 
-    }, []);
-  const user = info.User
-  console.log(user)
-  return (
-    <div id="root">
+  
+
+  render() {
+    const {info} = this.state;
+    console.log(info)
+    const user = info.User;
+    console.log(user)
+    return(
+      <div id="root">
             <div className="actions--bar">
                 <div className="wrap">
-                    <a className="button" href={`/courses/${id}/update`}>Update Course</a>
-                    <a className="button" href={`/courses/${id}/delete`}>Delete Course</a>
+                    <a className="button" href={`/courses/${info.id}/update`}>Update Course</a>
+                    <a className="button" href={`/courses/${info.id}/delete`}>Delete Course</a>
                     <a className="button button-secondary" href="/">Return to List</a>
                 </div>
             </div>
@@ -36,9 +50,9 @@ const CourseDetail =(props) => {
                         <div>
                             <h3 className="course--detail--title">Course Detail</h3>
                             <h4 className="course--name">{info.title}</h4>
-                            <p>{`By ${info.firstName} Smith`}</p>
+                            <p>{`By ${info.firstName} ${info.lastName}`}</p>
 
-                            <p>{info.description}</p>
+                            <p>{`${info.description}`}</p>
                         </div>
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
@@ -62,8 +76,9 @@ const CourseDetail =(props) => {
                 </form>
             </div>
     </div>
-    );
+    )
   }
+}
 
 
-export default withRouter(CourseDetail)
+export default withRouter(CourseDetailcopy)

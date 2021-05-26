@@ -11,12 +11,12 @@ export default class Header extends React.PureComponent {
           <h1 className="header--logo"><a href="/">Courses</a></h1>
           <nav>
             {authUser ? (
-              <React.Fragment>
+              <React.Fragment className="header--signedin">
                 <span>Welcome, {authUser.name}!</span>
                 <Link to="/signout">Sign Out</Link>
               </React.Fragment>
             ) : (
-              <React.Fragment>
+              <React.Fragment className="header--signedout">
                 <Link className="wrap header--flex" to="/signup">Sign Up</Link>
                 <Link className="wrap header--flex" to="/signin">Sign In</Link>
               </React.Fragment>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom';
@@ -9,7 +9,7 @@ import Header from './components/Header';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import Courses from './components/Courses';
-import CourseDetail from './components/CourseDetail';
+import CourseDetailcopy from './components/CourseDetailcopy';
 import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
@@ -26,7 +26,7 @@ const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 export default () => (
-  <Router>
+  <BrowserRouter>
     <div>
       <HeaderWithContext />
 
@@ -38,9 +38,9 @@ export default () => (
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/courses/create" component={CreateCourse} />
         <Route path="/courses/:id/update" component={UpdateCourse} />
-        <Route path="/courses/:id" component={CourseDetail} />
+        <Route exact path="/courses/:id" component={CourseDetailcopy} />
         <Route component={NotFound} />
       </Switch>
     </div>
-  </Router>
+  </BrowserRouter>
 );
