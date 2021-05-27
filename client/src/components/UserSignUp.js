@@ -5,7 +5,7 @@ import Form from './Form';
 export default class UserSignUp extends Component {
   state = {
     name: '',
-    username: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
@@ -13,13 +13,13 @@ export default class UserSignUp extends Component {
   render() {
     const {
       name,
-      username,
+      emailAddress,
       password,
       errors,
     } = this.state;
 
     return (
-      <div className="bounds">
+      <div className="form--centered">
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
           <Form 
@@ -37,12 +37,12 @@ export default class UserSignUp extends Component {
                   onChange={this.change} 
                   placeholder="Name" />
                 <input 
-                  id="username" 
-                  name="username" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
-                  value={username} 
+                  value={emailAddress} 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Email" />
                 <input 
                   id="password" 
                   name="password"
@@ -75,14 +75,14 @@ export default class UserSignUp extends Component {
     const { context } = this.props;
     const {
       name,
-      username,
+      emailAddress,
       password,
     } = this.state;
 
     // Create user
     const user = {
       name,
-      username,
+      emailAddress,
       password,
     };
 
@@ -91,9 +91,9 @@ export default class UserSignUp extends Component {
         if (errors.length) {
           this.setState({ errors });
         } else {
-          context.actions.signIn(username, password)
+          context.actions.signIn(emailAddress, password)
             .then(() => {
-              this.props.history.push('/authenticated');    
+              this.props.history.push('/');    
             });
         }
       })

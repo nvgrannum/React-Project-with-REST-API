@@ -84,6 +84,7 @@ header li {
     color: #57496e;
     font-weight: 300;
     font-size: 1.25rem;
+    vertical-align: middle;
 }
 .course--add--title .add {
     width: 20px;

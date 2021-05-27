@@ -6,8 +6,8 @@ export default class Header extends React.PureComponent {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
     return (
-      <div className="wrap header">
-        <div className="header--flex">
+      <div className="wrap header header--flex">
+
           <h1 className="header--logo"><a href="/">Courses</a></h1>
           <nav>
             {authUser ? (
@@ -20,14 +20,13 @@ export default class Header extends React.PureComponent {
             ) : (
               <div className="header--signedout">
                 <React.Fragment >
-                  <Link className="wrap header--flex" to="/signup">Sign Up</Link>
-                  <Link className="wrap header--flex" to="/signin">Sign In</Link>
+                  <li><Link className="wrap header--flex" to="/signup">Sign Up</Link></li>
+                  <li><Link className="wrap header--flex" to="/signin">Sign In</Link></li>
                 </React.Fragment>
               </div>
             )}
           </nav>
         </div>
-      </div>
     );
   }
 };
