@@ -9,7 +9,7 @@ import Header from './components/Header';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import Courses from './components/Courses';
-import CourseDetailcopy from './components/CourseDetailcopy';
+import CourseDetail from './components/CourseDetail';
 import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
@@ -38,7 +38,7 @@ export default () => (
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/courses/create" component={CreateCourse} />
         <Route path="/courses/:id/update" component={UpdateCourse} />
-        <Route exact path="/courses/:id" component={CourseDetailcopy} />
+        <Route exact path="/courses/:id" component={CourseDetail} />
         <Route component={NotFound} />
       </Switch>
     </div>
