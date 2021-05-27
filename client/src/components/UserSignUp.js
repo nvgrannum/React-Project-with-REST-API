@@ -4,7 +4,8 @@ import Form from './Form';
 
 export default class UserSignUp extends Component {
   state = {
-    name: '',
+    firstName: '',
+    lastName:'',
     emailAddress: '',
     password: '',
     errors: [],
@@ -12,7 +13,8 @@ export default class UserSignUp extends Component {
 
   render() {
     const {
-      name,
+      firstName,
+      lastName,
       emailAddress,
       password,
       errors,
@@ -30,12 +32,19 @@ export default class UserSignUp extends Component {
             elements={() => (
               <React.Fragment>
                 <input 
-                  id="name" 
-                  name="name" 
+                  id="firstName" 
+                  name="firstName" 
                   type="text"
-                  value={name} 
+                  value={firstName} 
                   onChange={this.change} 
-                  placeholder="Name" />
+                  placeholder="First Name" />
+                <input 
+                  id="lastName" 
+                  name="lastName" 
+                  type="text"
+                  value={lastName} 
+                  onChange={this.change} 
+                  placeholder="Last Name" />
                 <input 
                   id="emailAddress" 
                   name="emailAddress" 
@@ -74,14 +83,16 @@ export default class UserSignUp extends Component {
   submit = () => {
     const { context } = this.props;
     const {
-      name,
+      firstName,
+      lastName,
       emailAddress,
       password,
     } = this.state;
 
     // Create user
     const user = {
-      name,
+      firstName,
+      lastName,
       emailAddress,
       password,
     };

@@ -56,6 +56,7 @@ header li {
 .header--signedin li {
     text-align: right;
     line-height: 1.25;
+    padding:.5rem;
 }
 .header--signedout li {
     display: inline-block;
