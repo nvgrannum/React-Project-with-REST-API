@@ -60,15 +60,15 @@ router.get('/:id', asyncHandler(async(req, res, next) => {
 }));
 
 // Route that creates a new course.
-router.post('/', authenticateUser, asyncHandler(async (req, res) => {
+router.post('/', asyncHandler(async (req, res) => {
    
 try { 
     const course = await Course.create(req.body);
-    if(course.userId == req.currentUser.id) {
+    //if(course.userId == req.currentUser.id) {
         res.status(201).location('/api/courses/'+ course.id ).end();
-    } else{
-        res.status(401).end();
-    }
+    //} else{
+        //res.status(401).end();
+    //}
 } catch (error) {
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
         const errors = error.errors.map(err => err.message);
