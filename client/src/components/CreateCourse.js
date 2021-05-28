@@ -86,34 +86,6 @@ export default class CreateCourse extends Component{
                   </React.Fragment>
               </div>
             )} />
-              {/* <div>
-                  <label htmlFor="title">* Course Title</label>
-                  <input 
-                    id="title" 
-                    name="title" 
-                    type="text" 
-                    value={title} 
-                    onChange={this.change}/>
-
-                  <p>By {user.firstName} {user.lastName}</p>
-
-                  <label htmlFor="description">* Course Description</label>
-                  <textarea id="description" name="description" value={description}></textarea>
-              </div>
-              <div>
-                  <label htmlFor="estimatedTime">Estimated Time</label>
-                  <input 
-                    id="estimatedTime" 
-                    name="estimatedTime" 
-                    type="text" 
-                    value={estimatedTime} 
-                    onChange={this.change}/>
-
-                  <label htmlFor="materialsNeeded">Materials Needed</label>
-                  <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded}></textarea>
-              </div> */}             
-          {/* <button className="button" type="submit" onSubmit={this.submit}>Create Course</button><a className="button button-secondary" href="/">Cancel</a> */}
-
         <p>* Indicates required field</p>
       </div> 
           )
