@@ -113,6 +113,13 @@ header li {
     margin: 0 0 1.5rem 1rem;
     line-height: 1.5;
 }
+.course--material {
+    font-weight: 300;
+    margin: 0 0 1.5rem 1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
 .actions--bar {
     background: #e9e5f0;
     padding: 1rem 0;
