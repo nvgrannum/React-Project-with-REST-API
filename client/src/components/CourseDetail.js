@@ -1,6 +1,5 @@
 import {withRouter} from 'react-router-dom'
 import React, { Component} from 'react';
-import Cookies from 'js-cookie';
 import ReactMarkdown from 'react-markdown';
 const axios = require('axios');
 
@@ -11,11 +10,11 @@ class CourseDetail extends Component{
     info:{},
     id:this.props.match.params.id,
     courseUser:{},
-    authenticatedUserId:Cookies.getJSON('authenticatedUser').userId
+    authenticatedUser:this.props.context.authenticatedUser || null
   }
 
-  componentDidMount() {
-      this.getCourse(this.state.id);
+  async componentDidMount() {
+      await this.getCourse(this.state.id);
     }
 
   getCourse = async function(id) {
@@ -26,24 +25,27 @@ class CourseDetail extends Component{
             courseUser:data.data.User 
           })
         })
-      .catch(err=>{console.error(err)})
+      .catch(err=>{
+        console.error(err)
+        this.props.history.push('/notfound')})
     }
 
   
 
   render() {
-    const {info, courseUser, authenticatedUserId} = this.state;
+    const {info, courseUser, authenticatedUser} = this.state;
 
     return(
       <div id="root">
             <div className="actions--bar">
                 <div className="wrap">
-                  {(courseUser.id === authenticatedUserId)? (
+                  {authenticatedUser ? 
+                    ((courseUser.id === authenticatedUser.userId)? (
                     <div>
                       <a className="button" href={`/courses/${info.id}/update`}>Update Course</a>
                       <a className="button" href={`/courses/${info.id}/delete`}>Delete Course</a>
                       <a className="button button-secondary" href="/">Return to List</a>
-                    </div>):
+                    </div>):<a className="button button-secondary" href="/">Return to List</a>) :
                     (<a className="button button-secondary" href="/">Return to List</a>)}
                 </div>
             </div>

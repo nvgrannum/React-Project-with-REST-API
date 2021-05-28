@@ -131,6 +131,9 @@ header li {
     border-radius: .5rem;
     margin-bottom: 2.5rem;
 }
+.validation--errors a {
+    background:#800
+}
 .validation--errors h3 {
     color: #800;
     font-size: 1.25rem;

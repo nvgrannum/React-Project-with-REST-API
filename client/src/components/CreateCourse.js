@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Form from './Form';
-import Cookies from 'js-cookie';
-
 
 export default class CreateCourse extends Component{
   state= {
@@ -10,12 +8,7 @@ export default class CreateCourse extends Component{
     estimatedTime:'',
     materialsNeeded:'',
     errors:[],
-    user:Cookies.getJSON('authenticatedUser'),
-    userId:Cookies.getJSON('authenticatedUser').userId
-  }
-
-  componentDidMount(){
-    console.log(this.state.user)
+    user:this.props.context.authenticatedUser || null
   }
 
   render(){
@@ -31,8 +24,7 @@ export default class CreateCourse extends Component{
   return (
     
     <div>
-      {user? 
-      (<div className="wrap">
+      <div className="wrap">
         <h1>Create Course</h1>
           <Form 
             cancel={this.cancel}
@@ -82,10 +74,7 @@ export default class CreateCourse extends Component{
               </div>
             )} />
         <p>* Indicates required field</p>
-      </div> 
-          )
-          : 
-          (<h2>Authorization Required. Please sign in.</h2>)}    
+      </div>    
     </div>
   );
   }
@@ -109,12 +98,13 @@ export default class CreateCourse extends Component{
   //Sends the post request to the API to create new course 
   submit = () => {
     const { context } = this.props;
-    console.log(context.authenticatedUser)
-    const { title, description, estimatedTime, materialsNeeded, userId, user } = this.state;
+    const {authenticatedUser} = context
+    const { title, description, estimatedTime, materialsNeeded, user } = this.state;
+    const userId = user.userId
     const course ={title, description, estimatedTime, materialsNeeded, userId} 
 
     //Calls the Data.js file's createCourse to add a new course with authenticated user as 'owner'
-    context.data.createCourse(course, user.emailAddress, user.password)
+    context.data.createCourse(course, authenticatedUser.emailAddress, authenticatedUser.password)
       .then(response => {
         if(response.length){
           this.setState({

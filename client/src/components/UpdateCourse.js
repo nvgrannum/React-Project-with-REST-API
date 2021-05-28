@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Form from './Form';
-import Cookies from 'js-cookie';
 
 const axios = require('axios');
 
@@ -12,16 +11,22 @@ export default class UpdateCourse extends Component{
     estimatedTime:'',
     materialsNeeded:'',
     errors:[],
-    user:Cookies.getJSON('authenticatedUser'),
-    userId:Cookies.getJSON('authenticatedUser').userId,
+    user:this.props.context.authenticatedUser || null,
     id:this.props.match.params.id,
     course:{},
     courseUser:{}
   }
 
-  componentDidMount(){
+  async componentDidMount(){
+    await this.getCourse(this.state.id)
+      .catch(err=>{console.log(err)})
     console.log(this.state.user)
-    this.getCourse(this.state.id)
+    
+    if (this.state.user === null){
+      this.props.history.push('/signin')
+    } else if( this.state.user.userId !== this.state.courseUser.id) {
+      this.props.history.push('/forbidden')
+    }
   }
 
   getCourse = async function(id) {
@@ -36,7 +41,9 @@ export default class UpdateCourse extends Component{
           materialsNeeded:data.data.materialsNeeded 
         })
       })
-    .catch(err=>{console.error(err)})
+    .catch(err=>{
+      console.error(err)
+      this.props.history.push('/notfound')})
   }
 
   render(){
@@ -49,12 +56,11 @@ export default class UpdateCourse extends Component{
       user,
       course
     }=this.state
-  console.log(title)
+
   return (
     
     <div>
-      {user? 
-      (<div className="wrap">
+      <div className="wrap">
         <h1>Update {course.title}</h1>
           <Form 
             cancel={this.cancel}
@@ -105,9 +111,6 @@ export default class UpdateCourse extends Component{
             )} />
         <p>* Indicates required field</p>
       </div> 
-          )
-          : 
-          (<h2>Authorization Required. Please sign in.</h2>)}    
     </div>
   );
   }
@@ -127,10 +130,10 @@ export default class UpdateCourse extends Component{
     this.props.history.push(`/courses/${this.state.id}`);
    }
 
-   //can't get context (authorizedUser) to register, so fetching cookies each time...
+   //Calls Data.js updateCourse to create a PUT request to the API and update the current course
+   //Only if the authorized user is the owner to the course
   submit = () => {
     const { context } = this.props;
-    const {authorizedUser} = context
     const { title, description, estimatedTime, materialsNeeded, userId, user , id} = this.state;
     const course ={title, description, estimatedTime, materialsNeeded, userId} 
 
@@ -144,7 +147,9 @@ export default class UpdateCourse extends Component{
           this.props.history.push(`/courses/${id}`)
         }}
       )
-      .catch(err=>console.error(err))
+      .catch(err=>{
+        console.error(err)
+        this.props.history.push('/error')})
 
   }
 }
