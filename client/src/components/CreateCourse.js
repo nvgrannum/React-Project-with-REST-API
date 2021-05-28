@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Form from './Form';
-import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import Authenticated from './Authenticated'
 
 
 export default class CreateCourse extends Component{
@@ -13,13 +11,11 @@ export default class CreateCourse extends Component{
     materialsNeeded:'',
     errors:[],
     user:Cookies.getJSON('authenticatedUser'),
-    userId:Cookies.getJSON('authenticatedUser').userId,
-    id:this.props.match.params.id
+    userId:Cookies.getJSON('authenticatedUser').userId
   }
 
   componentDidMount(){
     console.log(this.state.user)
-    console.log(this.state.id) //neede for update route
   }
 
   render(){
@@ -37,7 +33,6 @@ export default class CreateCourse extends Component{
     <div>
       {user? 
       (<div className="wrap">
-        <ErrorsDisplay errors={errors} />
         <h1>Create Course</h1>
           <Form 
             cancel={this.cancel}
@@ -106,46 +101,31 @@ export default class CreateCourse extends Component{
     });
   }
 
+  //Returns user to home page without creating new course
   cancel = () => {
     this.props.history.push('/');
    }
 
+  //Sends the post request to the API to create new course 
   submit = () => {
     const { context } = this.props;
     console.log(context.authenticatedUser)
     const { title, description, estimatedTime, materialsNeeded, userId, user } = this.state;
     const course ={title, description, estimatedTime, materialsNeeded, userId} 
 
-    context.data.createCourse(course)
+    //Calls the Data.js file's createCourse to add a new course with authenticated user as 'owner'
+    context.data.createCourse(course, user.emailAddress, user.password)
       .then(response => {
         if(response.length){
-          console.error(response)
+          this.setState({
+            errors:response})
         } 
         else{
           console.log('course created')
           this.props.history.push('/')
         }}
       )
-      .catch(err=>console.error(err))
+      .catch(err=>{console.error(err)})
 
   }
-}
-
-  function ErrorsDisplay({ errors }) {
-    let errorsDisplay = null;
-
-    if (errors.length) {
-      errorsDisplay = (
-        <div>
-          <h2 className="validation--errors--label">Validation errors</h2>
-          <div className="validation-errors">
-            <ul>
-              {errors.map((error, i) => <li key={i}>{error}</li>)}
-            </ul>
-          </div>
-        </div>
-      );
-    }
-
-  return errorsDisplay;
 }

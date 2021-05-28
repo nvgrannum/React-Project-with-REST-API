@@ -33,9 +33,6 @@ class CourseDetail extends Component{
 
   render() {
     const {info, courseUser, authenticatedUserId} = this.state;
-    console.log(info)
-    console.log(courseUser.id)
-    console.log(info.materialsNeeded)
 
     return(
       <div id="root">

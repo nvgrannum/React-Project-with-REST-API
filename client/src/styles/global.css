@@ -126,7 +126,7 @@ header li {
     margin: -2rem 0 2rem;
 }
 .validation--errors {
-    background: #e9e5f0;
+    background: #f0e5e5;
     padding: 1rem;
     border-radius: .5rem;
     margin-bottom: 2.5rem;
