@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
-const axios = require('axios')
 
 class Courses extends Component{
   
@@ -9,21 +8,10 @@ class Courses extends Component{
   }
 
   componentDidMount() {
-      this.getCourses();
+    const {context} = this.props
+    context.data.getCourses()
+      .then(courses => this.setState({courses:courses}));
     }
-
-  getCourses = async function() {
-    try {
-      let courses = await axios.get('http://localhost:5000/api/courses')
-      .then(data=>{
-          this.setState({courses:data.data});
-        });
-        return courses
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   
 
   render(){

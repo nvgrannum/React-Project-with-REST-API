@@ -97,14 +97,14 @@ export default class UpdateCourse extends Component{
                         id="estimatedTime" 
                         name="estimatedTime"
                         type="text"
-                        value={estimatedTime} 
+                        value={estimatedTime || ''} 
                         onChange={this.change}/>  
 
                       <label>Materials Needed</label>
                       <textarea 
                         id="materialsNeeded" 
                         name="materialsNeeded"
-                        value={materialsNeeded} 
+                        value={materialsNeeded || ''} 
                         onChange={this.change}/> 
                     </div>
                   </div>             

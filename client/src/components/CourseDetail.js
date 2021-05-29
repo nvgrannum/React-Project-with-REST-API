@@ -1,7 +1,6 @@
 import {withRouter} from 'react-router-dom'
 import React, { Component} from 'react';
 import ReactMarkdown from 'react-markdown';
-const axios = require('axios');
 
 //Displays the full detailed information for individual courses.
 class CourseDetail extends Component{
@@ -13,23 +12,17 @@ class CourseDetail extends Component{
     authenticatedUser:this.props.context.authenticatedUser || null
   }
 
-  async componentDidMount() {
-      await this.getCourse(this.state.id);
-    }
-
   //Sends request to the API to get a specific course depending on the url params 
   //or directs to 'notfound' page if the course does not exist
-  getCourse = async function(id) {
-      await axios.get(`http://localhost:5000/api/courses/${id}`)
-      .then(data=>{
-          this.setState({
-            course:data.data,
-            courseUser:data.data.User 
-          })
-        })
+  componentDidMount() {
+    const {context} = this.props
+      context.data.getCourse(this.state.id)
+      .then(course => this.setState({
+        course:course,
+        courseUser:course.User}))
       .catch(err=>{
         console.error(err)
-        this.props.history.push('/notfound')})
+        this.props.history.push('/notfound')});
     }
 
   

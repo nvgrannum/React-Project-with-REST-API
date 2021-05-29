@@ -14,9 +14,9 @@ export default class DeleteCourse extends Component{
     courseUser:{}
   }
 
-  async componentDidMount(){
+ async componentDidMount(){
     await this.getCourse(this.state.id)
-    
+        
     if (this.state.user === null){
       this.props.history.push('/signin')
     } else if( this.state.user.userId !== this.state.courseUser.id) {
@@ -56,7 +56,6 @@ export default class DeleteCourse extends Component{
             submitButtonText="Delete Course"
             elements={() => (
               <div className="wrap">
-                <form>
                     <div className="main--flex">
                         <div>
                             <h3 className="course--detail--title">Course Detail</h3>
@@ -78,7 +77,6 @@ export default class DeleteCourse extends Component{
                              
                         </div>
                     </div>
-                </form>
             </div>
             )} />
       </div>   
