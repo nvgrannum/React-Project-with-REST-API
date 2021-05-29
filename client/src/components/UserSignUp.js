@@ -89,7 +89,7 @@ export default class UserSignUp extends Component {
       firstName,
       lastName,
       emailAddress,
-      password,
+      password
     } = this.state;
 
     // Create user
@@ -97,7 +97,7 @@ export default class UserSignUp extends Component {
       firstName,
       lastName,
       emailAddress,
-      password,
+      password
     };
 
     context.data.createUser(user)
