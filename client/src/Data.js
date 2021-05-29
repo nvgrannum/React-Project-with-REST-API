@@ -1,5 +1,9 @@
 import config from './config';
 
+//Helper class
+/*
+Contains user and course API request functions
+*/
 export default class Data {
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = config.apiBaseUrl + path;

@@ -3,7 +3,7 @@ import Form from './Form';
 
 const axios = require('axios');
 
-
+//Displays a form that updates an existing course, but only if the authorized user is the owner of the course
 export default class UpdateCourse extends Component{
   state= {
     title:'',
@@ -29,6 +29,8 @@ export default class UpdateCourse extends Component{
     }
   }
 
+  //Sends request to the API to get a specific course depending on the url params 
+  //or directs to 'notfound' page if the course does not exist
   getCourse = async function(id) {
     await axios.get(`http://localhost:5000/api/courses/${id}`)
     .then(data=>{
@@ -131,7 +133,7 @@ export default class UpdateCourse extends Component{
    }
 
    //Calls Data.js updateCourse to create a PUT request to the API and update the current course
-   //Only if the authorized user is the owner to the course
+   //Only if the authorized user is the owner of the course
   submit = () => {
     const { context } = this.props;
     const { title, description, estimatedTime, materialsNeeded, userId, user , id} = this.state;

@@ -9,10 +9,10 @@ class Courses extends Component{
   }
 
   componentDidMount() {
-      this.getCourse();
+      this.getCourses();
     }
 
-  getCourse = async function() {
+  getCourses = async function() {
     try {
       let courses = await axios.get('http://localhost:5000/api/courses')
       .then(data=>{

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Form from './Form';
 
+//Displays a form that creates a new course for the authoried user
+
 export default class CreateCourse extends Component{
   state= {
     title:'',
@@ -115,7 +117,9 @@ export default class CreateCourse extends Component{
           this.props.history.push('/')
         }}
       )
-      .catch(err=>{console.error(err)})
+      .catch(err=>{
+        console.error(err)
+        this.props.history.push('/error')})
 
   }
 }

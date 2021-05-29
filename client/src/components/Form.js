@@ -1,5 +1,10 @@
 import React from 'react';
 
+
+//Creates a form component. 
+//The elements are created on the individual pages and change depending on what the form requires
+//ErrorsDisplay displays errors at the top of the form only if a submitted form returns errors from the request
+
 export default (props) => {
   const {
     cancel,

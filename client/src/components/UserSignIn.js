@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+//Displays a sign in form that sets the authorized user for the site
 export default class UserSignIn extends Component {
   state = {
     emailAddress: '',
@@ -60,6 +61,7 @@ export default class UserSignIn extends Component {
     });
   }
 
+  //Calls Context.js signIn function to set cookies to remember an authorized user from the user database
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };

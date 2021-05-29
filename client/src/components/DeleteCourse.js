@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 const axios = require('axios');
 
-
+//Displays the course information as a final check and submitting on the 'delete' page permanently deletes the course
 export default class DeleteCourse extends Component{
   state= {
     errors:[],
@@ -99,11 +99,10 @@ export default class DeleteCourse extends Component{
 
   cancel = () => {
     this.props.history.push(`/courses/${this.state.id}`);
-   }
+  }
 
-   //can't get context (authorizedUser) to register, so fetching cookies each time...
-   //Calls Data.js updateCourse to create a PUT request to the API and update the current course
-   //Only if the authorized user is the owner to the course
+   //Calls Data.js deleteCourse to create a DELETE request to the API and destroy the current course
+   //Only if the authorized user is the owner of the course
   submit = () => {
     const { context } = this.props;
     const { title, description, estimatedTime, materialsNeeded, userId, user , id} = this.state;

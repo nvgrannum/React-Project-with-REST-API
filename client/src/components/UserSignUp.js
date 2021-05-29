@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+//Creates a new user and adds the information to the User database. 
+//Once registered, account can be accessed from UserSignIn
+
 export default class UserSignUp extends Component {
   state = {
     firstName: '',

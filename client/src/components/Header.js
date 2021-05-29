@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+//Header displayed on every page. Changes based on whether there is an authorized user already signed in
 export default class Header extends React.PureComponent {
   render() {
     const { context } = this.props;
