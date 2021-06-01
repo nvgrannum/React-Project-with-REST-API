@@ -7,6 +7,7 @@ class Courses extends Component{
     courses:[]
   }
 
+  //Calls getCourses function from Data.js to fetch the full list of courses from the database.
   componentDidMount() {
     const {context} = this.props
     context.data.getCourses()

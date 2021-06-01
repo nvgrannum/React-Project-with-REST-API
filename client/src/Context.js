@@ -32,7 +32,9 @@ export class Provider extends Component {
     );
   }
 
-  
+  //Calls getUser function from Data.js and passes along credentials of "emailAddress" and "password" to find the user in the database.
+  //Returns user if user exists or an error if getUser does not find a matching user.
+  //Successful calls result in user information being stored in cookies for 1 day before needing to be entered again.
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
