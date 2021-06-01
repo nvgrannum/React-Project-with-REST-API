@@ -26,6 +26,13 @@ export default class Data {
     return fetch(url, options);
   }
 
+  /*
+  Makes a GET request to the API to fetch the user attempting to sign in
+  Requires authorization
+  Status 200 - Successful response
+  Status 401 - Unauthorized request
+  Other responses will fall to a 500 server response and throw a new error
+  */
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
@@ -39,6 +46,13 @@ export default class Data {
     }
   }
   
+  /*
+  Makes a POST request to the API to create a new user and add to the database
+  Does not require authorization
+  Status 201 - Successful response
+  Status 400 - Incomplete request
+  Other responses will fall to a 500 server response and throw a new error
+  */
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
     if (response.status === 201) {
@@ -53,6 +67,14 @@ export default class Data {
       throw new Error();
     }
   }
+
+  /*
+  Makes a POST request to the API to create a new course.
+  Requires authorization
+  Status 201 - Successful response
+  Status 400 - Incomplete or inaccurate request
+  Other responses will fall to a 500 server response and throw a new error
+  */
 
   async createCourse(course,emailAddress, password) {
     const response = await this.api(`/courses`, 'POST', course, true, {emailAddress, password});
@@ -69,7 +91,12 @@ export default class Data {
     }
   }
 
-
+  /*
+    Makes a GET request to the API to get the full list of courses from the database.
+    Does not requires authorization
+    Status 200 - Successful response
+    Other responses will fall to a 500 server response and throw a new error
+    */
   async getCourses() {
     const response = await this.api(`/courses`, 'GET');
     if (response.status === 200) {
@@ -83,25 +110,34 @@ export default class Data {
     }
   }
 
+  /*
+  Makes a GET request to the API to fetch a specific course.
+  Does not require authorization
+  Status 201 - Successful response
+  Other responses will fall to a 500 server response and throw a new error
+  */
   async getCourse(id) {
     const response = await this.api(`/courses/${id}`, 'GET');
     if (response.status === 200) {
       return response.json().then(data => data);
-    }
-    else if (response.status === 401) {
-      return null;
-    }
-    else {
+    } else {
       throw new Error();
     }
   }
 
+   /*
+  Makes a PUT request to the API to fetch a specific course and update the contents.
+  Requires authorization
+  Status 204 - Successful response
+  Status 401/403 - Unauthorized request
+  Other responses will fall to a 500 server response and throw a new error
+  */
   async updateCourse(courseId, course, emailAddress, password) {
     const response = await this.api(`/courses/${courseId}`, 'PUT', course, true, {emailAddress, password});
     if (response.status === 204) {
       return [];
     }
-    else if (response.status === 400) {
+    else if (response.status === 401 || response.status === 403) {
       return response.json().then(data => {
         return data.errors;
       });
@@ -111,12 +147,19 @@ export default class Data {
   }
   }
 
+   /*
+  Makes a DELETE request to the API to destroy a specific course.
+  Requires authorization
+  Status 204 - Successful response
+  Status 403 - Forbidden request
+  Other responses will fall to a 500 server response and throw a new error
+  */
   async deleteCourse(courseId, course, emailAddress, password) {
     const response = await this.api(`/courses/${courseId}`, 'DELETE', course, true, {emailAddress, password});
     if (response.status === 204) {
       return [];
     }
-    else if (response.status === 400) {
+    else if (response.status === 403) {
       return response.json().then(data => {
         return data.errors;
       });

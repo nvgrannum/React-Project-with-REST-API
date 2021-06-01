@@ -10,7 +10,11 @@ class Courses extends Component{
   componentDidMount() {
     const {context} = this.props
     context.data.getCourses()
-      .then(courses => this.setState({courses:courses}));
+      .then(courses => this.setState({courses:courses}))
+      .catch(err=>{
+        console.error(err)
+        this.props.history.push('/error')
+      });
     }
   
 

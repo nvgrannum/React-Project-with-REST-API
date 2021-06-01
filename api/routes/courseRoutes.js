@@ -16,7 +16,7 @@ function asyncHandler (cb) {
       }
     }
 }
-  
+//router.use((req,res) => {return res.status(500).json({});} ) 
 
 // Route that returns a list of courses.
 router.get('/', asyncHandler(async(req,res)=>{
@@ -90,8 +90,13 @@ router.put('/:id', authenticateUser, asyncHandler(async (req, res) => {
         search= await Course.findByPk(req.params.id);
         if(course && search) {
             if(userId ==search.userId){
-                await Course.update(course, {where:{id: req.params.id}});
+                if(course.userId === search.userId){
+                   await Course.update(course, {where:{id: req.params.id}});
                 res.status(204).end(); 
+                } else{
+                    console.log('Course ownership cannot be passed to another user.')
+                    res.status(403).end();
+                }
             } else {
                 res.status(403).end();
             }

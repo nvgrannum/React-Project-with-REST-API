@@ -13,8 +13,13 @@ export default class DeleteCourse extends Component{
     course:{},
     courseUser:{}
   }
-
- async componentDidMount(){
+/*
+Fetches the course and user data from the API.
+If the request is made from a non-authorized user (not signed in), the page redirects to the signin page.
+If the request is made from an authorized user, but the user is not the owner of the course, the page redirects to 'Forbidden'.
+Any other errors, including if the course ID is not in the database, returns an error and redirects to 'not found'
+*/
+  async componentDidMount(){
     await this.getCourse(this.state.id)
         
     if (this.state.user === null){
@@ -34,7 +39,7 @@ export default class DeleteCourse extends Component{
       })
     .catch(err=>{
       console.error(err)
-      this.history.props.push('/notfound')})
+      this.props.history.push('/notfound')})
   }
 
   render(){

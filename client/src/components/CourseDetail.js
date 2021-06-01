@@ -17,25 +17,27 @@ class CourseDetail extends Component{
   componentDidMount() {
     const {context} = this.props
       context.data.getCourse(this.state.id)
-      .then(course => this.setState({
-        course:course,
-        courseUser:course.User}))
-      .catch(err=>{
-        console.error(err)
-        this.props.history.push('/notfound')});
+        .then(course => this.setState({
+          course:course,
+          courseUser:course.User}))
+        .catch(err=>{
+          console.error(err)
+          this.props.history.push('/notfound')});
     }
 
   
-    /*Checks if there is an authenticated user. If there is an authenticated user AND the user's id
+    /*
+    Checks if there is an authenticated user. If there is an authenticated user AND the user's id
     matches the course's owner, then update and delete buttons display. If the user is not authorized
-    or the authorized user is not the course owner, update and delete buttons do not display*/
+    or the authorized user is not the course owner, update and delete buttons do not display
+    */
   render() {
     const {course, courseUser, authenticatedUser} = this.state;
 
     return(
-      <div id="root">
+      <div id="root" className="wrap">
             <div className="actions--bar">
-                <div className="wrap">
+
                   {authenticatedUser ? 
                     ((courseUser.id === authenticatedUser.userId)? (
                     <div>
@@ -44,7 +46,7 @@ class CourseDetail extends Component{
                       <a className="button button-secondary" href="/">Return to List</a>
                     </div>):<a className="button button-secondary" href="/">Return to List</a>) :
                     (<a className="button button-secondary" href="/">Return to List</a>)}
-                </div>
+
             </div>
             
             <div className="wrap">

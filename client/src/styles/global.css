@@ -123,7 +123,9 @@ header li {
 .actions--bar {
     background: #e9e5f0;
     padding: 1rem 0;
-    margin: -2rem 0 2rem;
+    margin: -2rem -1rem 2rem;
+    max-width: 1250px;
+    display: flex;
 }
 .validation--errors {
     background: #f0e5e5;
@@ -216,6 +218,32 @@ input:focus, button:focus, .button:focus, textarea:focus {
     outline: 2px solid #332a40;
 }
 
+/* adds additional padding to the bottom of an element */
+.pad-bottom {
+    padding-bottom: 40px;
+  }
+  
+  /* added additional class name for header elements */
+  .signout {
+    margin-top: 60px;
+  }
+  
+  /* styles the signed in user's name in the header */
+  .header nav span {
+    color: #fff;
+    margin-left: 20px;
+  }
+  
+  /* styles the validation errors */
+  .validation--errors--label {
+    color: #7c689b;
+    font-size: 28px;
+  }
+  .validation-errors ul {
+    color: #7c689b;
+    padding: 15px 0 40px 10px;
+  }
+
 @media screen and (min-width: 600px) {
     .header--signedin li {
         display: inline-block;
@@ -250,4 +278,5 @@ input:focus, button:focus, .button:focus, textarea:focus {
         margin: 0 .5rem 0 0;
         display: inline-block;
     }
+    
 }
