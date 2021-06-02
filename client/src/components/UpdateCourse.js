@@ -17,6 +17,9 @@ export default class UpdateCourse extends Component{
     courseUser:{}
   }
 
+  //Sends request to the API to get a specific course depending on the url params 
+  //or directs to 'notfound' page if the course does not exist
+
   async componentDidMount(){
     const {context} = this.props
     await context.data.getCourse(this.state.id)
@@ -47,24 +50,6 @@ export default class UpdateCourse extends Component{
      } 
   }
 
-  //Sends request to the API to get a specific course depending on the url params 
-  //or directs to 'notfound' page if the course does not exist
-  // getCourse = async function(id) {
-  //   await axios.get(`http://localhost:5000/api/courses/${id}`)
-  //   .then(data=>{
-  //       this.setState({
-  //         course:data.data,
-  //         courseUser:data.data.User,
-  //         title:data.data.title,
-  //         description:data.data.description,
-  //         estimatedTime:data.data.estimatedTime,
-  //         materialsNeeded:data.data.materialsNeeded 
-  //       })
-  //     })
-  //   .catch(err=>{
-  //     console.error(err)
-  //     this.props.history.push('/notfound')})
-  // }
 
   render(){
     const {
