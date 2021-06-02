@@ -22,7 +22,12 @@ class CourseDetail extends Component{
           courseUser:course.User}))
         .catch(err=>{
           console.error(err)
-          this.props.history.push('/notfound')});
+          if(err.message === "Course not found") {
+            this.props.history.push('/notfound')
+          } else {
+            this.props.history.push('/error')
+          }
+          });
     }
 
   

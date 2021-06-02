@@ -83,15 +83,16 @@ try {
 //Update specific course
 router.put('/:id', authenticateUser, asyncHandler(async (req, res) => {
     let course;
-    let search;
+    let body;
     let userId=req.currentUser.id
     try {
-        course = req.body;
-        search= await Course.findByPk(req.params.id);
-        if(course && search) {
-            if(userId ==search.userId){
-                if(course.userId === search.userId){
-                   await Course.update(course, {where:{id: req.params.id}});
+        body = req.body;
+        console.log(body)
+        course= await Course.findByPk(req.params.id);
+        if(course && body) {
+            if(userId ==course.userId){
+                if(course.userId === body.userId){
+                   await Course.update(body, {where:{id: req.params.id}});
                 res.status(204).end(); 
                 } else{
                     console.log('Course ownership cannot be passed to another user.')

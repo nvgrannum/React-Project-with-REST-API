@@ -120,6 +120,8 @@ export default class Data {
     const response = await this.api(`/courses/${id}`, 'GET');
     if (response.status === 200) {
       return response.json().then(data => data);
+    } else if (response.status === 404) {
+      throw new Error('Course not found'); 
     } else {
       throw new Error();
     }

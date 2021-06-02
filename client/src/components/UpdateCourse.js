@@ -18,9 +18,26 @@ export default class UpdateCourse extends Component{
   }
 
   async componentDidMount(){
-    await this.getCourse(this.state.id)
-      .catch(err=>{console.log(err)})
-    console.log(this.state.user)
+    const {context} = this.props
+    await context.data.getCourse(this.state.id)
+      .then(data=>{
+        this.setState({
+          course:data,
+          courseUser:data.User,
+          title:data.title,
+          description:data.description,
+          estimatedTime:data.estimatedTime,
+          materialsNeeded:data.materialsNeeded 
+        })
+      })
+      .catch(err=>{
+        console.error(err)
+        if(err.message === "Course not found") {
+          this.props.history.push('/notfound')
+        } else {
+          this.props.history.push('/error')
+        }
+        })
     
     if (this.state.user === null){
       this.props.history.push('/signin')
@@ -31,22 +48,22 @@ export default class UpdateCourse extends Component{
 
   //Sends request to the API to get a specific course depending on the url params 
   //or directs to 'notfound' page if the course does not exist
-  getCourse = async function(id) {
-    await axios.get(`http://localhost:5000/api/courses/${id}`)
-    .then(data=>{
-        this.setState({
-          course:data.data,
-          courseUser:data.data.User,
-          title:data.data.title,
-          description:data.data.description,
-          estimatedTime:data.data.estimatedTime,
-          materialsNeeded:data.data.materialsNeeded 
-        })
-      })
-    .catch(err=>{
-      console.error(err)
-      this.props.history.push('/notfound')})
-  }
+  // getCourse = async function(id) {
+  //   await axios.get(`http://localhost:5000/api/courses/${id}`)
+  //   .then(data=>{
+  //       this.setState({
+  //         course:data.data,
+  //         courseUser:data.data.User,
+  //         title:data.data.title,
+  //         description:data.data.description,
+  //         estimatedTime:data.data.estimatedTime,
+  //         materialsNeeded:data.data.materialsNeeded 
+  //       })
+  //     })
+  //   .catch(err=>{
+  //     console.error(err)
+  //     this.props.history.push('/notfound')})
+  // }
 
   render(){
     const {
@@ -136,7 +153,8 @@ export default class UpdateCourse extends Component{
    //Only if the authorized user is the owner of the course
   submit = () => {
     const { context } = this.props;
-    const { title, description, estimatedTime, materialsNeeded, userId, user , id} = this.state;
+    const { title, description, estimatedTime, materialsNeeded, user , id} = this.state;
+    const userId = user.userId
     const course ={title, description, estimatedTime, materialsNeeded, userId} 
 
     context.data.updateCourse(id, course, user.emailAddress, user.password)
