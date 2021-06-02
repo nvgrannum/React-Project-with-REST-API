@@ -29,6 +29,9 @@ export default class UpdateCourse extends Component{
           estimatedTime:data.estimatedTime,
           materialsNeeded:data.materialsNeeded 
         })
+        if( this.state.user.userId !== this.state.courseUser.id) {
+          this.props.history.push('/forbidden')
+        }
       })
       .catch(err=>{
         console.error(err)
@@ -41,9 +44,7 @@ export default class UpdateCourse extends Component{
     
     if (this.state.user === null){
       this.props.history.push('/signin')
-    } else if( this.state.user.userId !== this.state.courseUser.id) {
-      this.props.history.push('/forbidden')
-    }
+     } 
   }
 
   //Sends request to the API to get a specific course depending on the url params 
