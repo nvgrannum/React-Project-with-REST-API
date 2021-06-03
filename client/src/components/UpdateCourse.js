@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Form from './Form';
 
-const axios = require('axios');
-
 //Displays a form that updates an existing course, but only if the authorized user is the owner of the course
 export default class UpdateCourse extends Component{
   state= {
