@@ -108,7 +108,11 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               this.props.history.push('/');    
-            });
+            })
+            .catch(error=> {
+              console.log(error);
+              this.props.history.push('/error')
+            })
         }
       })
       .catch((err) => {
